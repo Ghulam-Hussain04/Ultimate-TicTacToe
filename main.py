@@ -2,8 +2,8 @@ import pygame
 import sys
 import copy
 
-WIDTH, HEIGHT = 600, 600
-LINE_WIDTH = 3
+WIDTH, HEIGHT = 600, 600  # screen size
+LINE_WIDTH = 3 # boards in one row
 
 pygame.init()
 FONT = pygame.font.SysFont("Arial", 24)
@@ -50,7 +50,7 @@ class UltimateTicTacToe:
     def game_winner(self):
         return self.check_winner(self.winners)
 
-    def check_winner(self, board):
+    def check_winner(self, board):  #check for winner on a sub board
         for i in range(3):
             if board[i][0] == board[i][1] == board[i][2] != "": return board[i][0]
             if board[0][i] == board[1][i] == board[2][i] != "": return board[0][i]
@@ -58,7 +58,7 @@ class UltimateTicTacToe:
         if board[0][2] == board[1][1] == board[2][0] != "": return board[0][2]
         return None
 
-    def available_moves(self):
+    def available_moves(self):  # check for all available moves
         moves = []
         for br in range(3):
             for bc in range(3):
@@ -119,7 +119,7 @@ def minimax(game, depth, alpha, beta, maximizing):  # minimax algo with alpha an
         return evaluate(game), None
 
     best_move = None
-    if maximizing:
+    if maximizing:  # AI max
         max_eval = -float('inf')
         for move in game.available_moves():
             new_game = copy.deepcopy(game)
@@ -133,7 +133,7 @@ def minimax(game, depth, alpha, beta, maximizing):  # minimax algo with alpha an
                 break
         return max_eval, best_move
     else:
-        min_eval = float('inf')
+        min_eval = float('inf')  # human min
         for move in game.available_moves():
             new_game = copy.deepcopy(game)
             new_game.make_move(*move, 'X')
@@ -244,7 +244,7 @@ def main():
             text_rect = text.get_rect(center=(WIDTH // 2, HEIGHT // 2))
             screen.blit(text, text_rect)
             pygame.display.flip()
-            pygame.time.wait(4000)
+            pygame.time.wait(5000)
             running = False
 
 if __name__ == "__main__":
